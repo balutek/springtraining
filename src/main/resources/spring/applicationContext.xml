@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!---->
+    <!--<bean id="accountDao" class="pl.balutek.springtraining.dao.impl.CsvAccountDao">-->
+        <!--<property name="csvResource" value="csv/accounts.csv" />-->
+    <!--</bean>-->
+
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/test?autoReconnect=true" />
+        <property name="username" value="balut" />
+        <property name="password" value="balut" />
+    </bean>
+
+    <bean id="accountDao" class="pl.balutek.springtraining.dao.impl.JdbcAccountDao">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="accountService" class="pl.balutek.springtraining.service.AccountService">
+        <property name="accountDao" ref="accountDao" />
+    </bean>
+
+</beans>
